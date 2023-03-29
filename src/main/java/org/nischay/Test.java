@@ -5,6 +5,7 @@ import org.nischay.integration.model.Move;
 
 public class Test {
     public static void main(String[] args) {
-        Table table = Move.class.getAnnotation(Table.class);
+        Class<?> type = Object.class;
+        System.out.println(type.getSimpleName());
     }
 }

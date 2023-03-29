@@ -1,13 +1,12 @@
 package org.nischay.core.table_info;
 
-import org.nischay.core.table_annotations.Table;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class TableDefinition {
     String table;
     List<Column> columns = new ArrayList<>();
+    static TableDefinitionHelper helper = new TableDefinitionHelper();
 
     public String getTable() {
         return table;
@@ -22,7 +21,9 @@ public class TableDefinition {
     }
 
     public static TableDefinition build(Class<?> classType) {
-        return null;
+        return new Builder().withTable(helper.getTableNameFromClass(classType))
+                .withColumns(helper.getColumnsFromClass(classType))
+                .build();
     }
 
     public static class Builder {
@@ -36,6 +37,11 @@ public class TableDefinition {
 
         public Builder withColumn(Column column) {
             columns.add(column);
+            return this;
+        }
+
+        public Builder withColumns(List<Column> columns) {
+            this.columns.addAll(columns);
             return this;
         }
 
